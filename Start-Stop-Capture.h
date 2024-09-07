@@ -39,12 +39,6 @@ public:
     void CreateConsole();
     virtual void OnInitialUpdate(); // Called for initial form setup
 
-    // Date and time data object
-    CDateTime m_date_time;
-
-    // Dialog for managing sound devices
-    CDialog_SoundDevices m_dialog_sound;
-
     // Strings for file handling
     CString m_strOpenFile;
     CStringA file_name_exception;
@@ -93,11 +87,6 @@ private:
     afx_msg void OnButtonStopRecording();
     afx_msg void OnComboFFTLen();
     afx_msg void OnComboSamplingRate();
-
-    // Private utility functions
-    void PlotData(float* data);      // Function to plot data
-    void SetGUITools();              // Setup GUI tools (brushes, etc.)
-    void SetInitialParameters();     // Set initial parameters for the form
 
     // UI elements
     CStatic m_static_user_message, m_static_file_info; // Static control elements for the UI
