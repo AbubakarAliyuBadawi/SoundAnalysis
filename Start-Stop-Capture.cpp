@@ -194,7 +194,7 @@ void CHMI::InitializeAudio()
     }
 }
 
-// Stop Audio Capture
+// Stop Audio Capture and Playback in GUI
 void CHMI::StopAudioCapture()
 {
     if (m_hWaveIn)
@@ -206,7 +206,7 @@ void CHMI::StopAudioCapture()
             std::cerr << "Failed to stop wave input device with error: " << result << ".\n";
         }
 
-        // Reset the input device
+        // Reset the input device to flush the buffers
         result = waveInReset(m_hWaveIn);
         if (result != MMSYSERR_NOERROR)
         {
@@ -240,8 +240,15 @@ void CHMI::StopAudioCapture()
 
     if (m_hWaveOut)
     {
+        // Stop playback immediately and flush all pending buffers
+        MMRESULT result = waveOutReset(m_hWaveOut);
+        if (result != MMSYSERR_NOERROR)
+        {
+            std::cerr << "Failed to reset wave output device with error: " << result << ".\n";
+        }
+
         // Close wave output device
-        MMRESULT result = waveOutClose(m_hWaveOut);
+        result = waveOutClose(m_hWaveOut);
         if (result != MMSYSERR_NOERROR)
         {
             std::cerr << "Failed to close wave output device with error: " << result << ".\n";
@@ -249,6 +256,7 @@ void CHMI::StopAudioCapture()
         m_hWaveOut = NULL;
     }
 }
+
 
 // Cleanup Audio Resources
 void CHMI::CleanupAudio()
@@ -322,25 +330,6 @@ void CHMI::OnComboSamplingRate()
     default:
         m_sampling_rate = 1024; // Default value
         break;
-    }
-}
-
-// Plotting Data
-void CHMI::PlotData(float* data)
-{
-    CClientDC dc(this);
-    CPen pen;
-    pen.CreatePen(PS_SOLID, 1, RGB(255, 200, 200));
-    dc.SelectObject(&pen);
-
-    // Assume brush_black is defined elsewhere
-    // dc.SelectObject(&brush_black);
-    // dc.FillRect(CRect(0, 200, 1000, 1000), &brush_black);
-
-    for (int i = 0; i < m_fft_length / 2; i++)
-    {
-        dc.MoveTo(i, static_cast<int>(data[i]));
-        dc.LineTo(i + 1, static_cast<int>(data[i + 1]));
     }
 }
 
