@@ -236,43 +236,6 @@ void CHMI::OnInitialUpdate()
 		
 	fprintf(((CSignalAnalysisApp*)AfxGetApp())->exceptionLogFile,"%s\n\n",file_name_exception);
 	fflush(((CSignalAnalysisApp*)AfxGetApp())->exceptionLogFile);
-	
-	//enum { NUM_BUF = 3 };
-	//WAVEHDR _header[NUM_BUF];
-
-	//	WAVEFORMATEX pFormat;
-	//	pFormat.wFormatTag = WAVE_FORMAT_PCM; // simple, uncompressed format
-	//	pFormat.nChannels = 1; // 1=mono, 2=stereo
-	//	pFormat.nSamplesPerSec = Samplerate;
-	//	pFormat.wBitsPerSample = 16; // 16 for high quality, 8 for telephone-grade
-	//	pFormat.nBlockAlign = pFormat.nChannels * pFormat.wBitsPerSample / 8;
-	//	pFormat.nAvgBytesPerSec = (pFormat.nSamplesPerSec) * (pFormat.nChannels) * (pFormat.wBitsPerSample) / 8;
-	//	pFormat.cbSize = 0;
-
-	//	short int* _pBuf;
-	//	size_t bpbuff = 4410;//= (pFormat.nSamplesPerSec) * (pFormat.nChannels) * (pFormat.wBitsPerSample)/8;
-	//	_pBuf = new short int[bpbuff * NUM_BUF];
-
-	//	waveInOpen(&hWaveIn, WAVE_MAPPER, &pFormat, (DWORD)myWaveInProc, 0L, CALLBACK_FUNCTION);
-	//	waveOutOpen(&hWaveOut, WAVE_MAPPER, &pFormat, (DWORD_PTR)nullptr, 0, CALLBACK_FUNCTION);
-	//	// initialize all headers in the queue
-	//	for (int i = 0; i < NUM_BUF; i++)
-	//	{
-	//		_header[i].lpData = (LPSTR)&_pBuf[i * bpbuff];
-	//		_header[i].dwBufferLength = bpbuff * sizeof(*_pBuf);
-	//		_header[i].dwFlags = 0L;
-	//		_header[i].dwLoops = 0L;
-	//		waveInPrepareHeader(hWaveIn, &_header[i], sizeof(WAVEHDR));
-	//	}
-	//	waveInAddBuffer(hWaveIn, &_header[0], sizeof(WAVEHDR));
-
-	//	waveInStart(hWaveIn);
-
-	//	getchar();
-	//	waveInClose(hWaveIn);
-	//	waveOutClose(hWaveOut);
-	//	delete _pBuf;
-
 	CreateConsole();
 
 	SetInitialParameters();
